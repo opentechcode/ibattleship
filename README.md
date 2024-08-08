@@ -1,2 +1,2 @@
 # ibattleship
-This is old repo made for iOS4 and does not work any more. This is for archive purpose
+TThis repository contains the codebase for the iBattleship app, The app was made for iOS 4. The app achieved significant success, reaching the top of the App Store's iPad category soon after its multiplayer launch. The codebase is now obsolete, but with the consent of the original owner, the repository has been made public. This is a piece of app history, offering insights into early iOS app development
