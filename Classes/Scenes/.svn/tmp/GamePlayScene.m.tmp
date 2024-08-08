@@ -1,0 +1,114 @@
+//
+//  GamePlayScene.m
+//  iBattleships
+//
+//  Created by Sajjad Raza on 9/30/10.
+//  Copyright 2010 Vizio-Mobile Inc. All rights reserved.
+//
+
+#import "GamePlayScene.h"
+
+
+@implementation GamePlayScene
+@synthesize backgroundImage,horizon,objLayer,gamePlayGadgetLayer;
+
+- (id) init
+{
+	self = [super init];
+	if (self != nil) 
+	{
+		CCLabel* label = [CCLabel labelWithString:@"GamePlayScene" fontName:@"Marker Felt" fontSize:64];
+		
+		// ask director the the window size
+		CGSize size = [[CCDirector sharedDirector] winSize];
+		
+		// position the label on the center of the screen
+		label.position =  ccp( size.width /2 , 700 );
+		
+		// add the label as a child to this Layer
+		[self addChild: label];
+		
+		self.backgroundImage  = [CCSprite spriteWithFile:@"background_lower.png"];
+		[self.backgroundImage setPosition:CGPointMake(1024/2, 305) ];
+		[self addChild:self.backgroundImage ];
+		
+		self.horizon  = [CCSprite spriteWithFile:@"background_horizon.png"];
+		[self.horizon setPosition:CGPointMake(1024/2, 689) ];
+		[self addChild:self.horizon ];
+		
+		CCMenuItemFont *mnuPlay= [CCMenuItemFont itemFromString:@"MainMenu" target:self selector:@selector(mainMenu:)];
+		[mnuPlay setPosition:CGPointMake(768, 70)]; 		
+		
+		CCMenu *menu =[CCMenu menuWithItems:mnuPlay,nil];
+		[menu setPosition:CGPointMake(0, 0)];
+		[self addChild:menu];
+		//actionWithWaves:5 amplitude:40 grid:ccg(15,10) duration:t];
+		id act = [CCLiquid actionWithWaves:1 amplitude:1.55 grid:ccg(4,10) duration:3]; 
+		/*CCAnimation *worldAnimation= [CCAnimation animationWithName:@"waterAnimation"];
+		for (int i=1; i< 5;i++ )
+		{
+			[worldAnimation addFrameWithFilename:[NSString stringWithFormat:@"%d.png",i]];
+		}
+		[worldAnimation setDelay:0.30];
+		 
+		id animate = [CCAnimate actionWithAnimation:worldAnimation];*/
+		id repaetAction = [CCRepeatForever actionWithAction:act];
+		
+		[backgroundImage runAction:repaetAction];
+		
+		ObjectsLayer *temp = [[ObjectsLayer alloc] init];
+		self.objLayer =temp;
+		[temp release];
+		[self addChild:self.objLayer];
+		
+		//Temp Code
+		/*for (int i=0;i<100 ; i++)
+		{
+			Cell *tempCell = (Cell*)[[GameManager sharedGameManager].gameProcessor.enemyMap.cells objectAtIndex:i];
+			float x =tempCell.posX;
+			float y =tempCell.posY;
+			CCSprite *dotSprite  = [CCSprite spriteWithFile:@"dot.png"];
+			[dotSprite setPosition:CGPointMake(x,y)];
+			[self addChild:dotSprite z:2];
+			
+
+		}  
+		
+		for (int i=0;i<100 ; i++)
+		{
+			Cell *tempCell = (Cell*)[[GameManager sharedGameManager].gameProcessor.playerMap.cells objectAtIndex:i];
+			float x =tempCell.posX;
+			float y =tempCell.posY;
+			CCSprite *dotSprite  = [CCSprite spriteWithFile:@"dot.png"];
+			[dotSprite setPosition:CGPointMake(x,y)];
+			[self addChild:dotSprite z:2];
+			
+			
+		}*/  
+		
+		GameplayGadgetLayer *tempGadgetLayer= [[GameplayGadgetLayer alloc] init];
+		self.gamePlayGadgetLayer=tempGadgetLayer;
+		[tempGadgetLayer release];
+		[self addChild:gamePlayGadgetLayer z:0];
+		
+		
+	}
+	return self;
+}
+
+-(void) mainMenu:(id) sender
+{    
+		[[GameManager sharedGameManager]  mainMenu];
+}
+
+- (void) dealloc
+{
+	[backgroundImage stopAllActions];
+	[backgroundImage release];
+	[self removeChild:objLayer cleanup:YES];
+	[objLayer release];
+	[gamePlayGadgetLayer release];
+	[super dealloc];
+}
+
+@end

@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/Scenes
+END
+HowToPlay.m
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/ibattleship/!svn/ver/226/trunk/iBattleShips/Classes/Scenes/HowToPlay.m
+END
+OptionScene.m
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/ibattleship/!svn/ver/145/trunk/iBattleShips/Classes/Scenes/OptionScene.m
+END
+CreditScene.m
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/ibattleship/!svn/ver/105/trunk/iBattleShips/Classes/Scenes/CreditScene.m
+END
+StoryScene.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/ibattleship/!svn/ver/98/trunk/iBattleShips/Classes/Scenes/StoryScene.h
+END
+StoryScene.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/ibattleship/!svn/ver/146/trunk/iBattleShips/Classes/Scenes/StoryScene.m
+END
+HelpScene.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/ibattleship/!svn/ver/33/trunk/iBattleShips/Classes/Scenes/HelpScene.h
+END
+HelpScene.m
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/ibattleship/!svn/ver/105/trunk/iBattleShips/Classes/Scenes/HelpScene.m
+END
+HighScoresScene.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ibattleship/!svn/ver/123/trunk/iBattleShips/Classes/Scenes/HighScoresScene.h
+END
+GamePlayScene.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/Scenes/GamePlayScene.h
+END
+HighScoresScene.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ibattleship/!svn/ver/230/trunk/iBattleShips/Classes/Scenes/HighScoresScene.m
+END
+GamePlayScene.m
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/Scenes/GamePlayScene.m
+END
+RootViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/ibattleship/!svn/ver/219/trunk/iBattleShips/Classes/Scenes/RootViewController.h
+END
+OptionScene.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/ibattleship/!svn/ver/98/trunk/iBattleShips/Classes/Scenes/OptionScene.h
+END
+HowToPlay.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/ibattleship/!svn/ver/219/trunk/iBattleShips/Classes/Scenes/HowToPlay.h
+END
+RootViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/ibattleship/!svn/ver/144/trunk/iBattleShips/Classes/Scenes/RootViewController.m
+END
+CreditScene.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/ibattleship/!svn/ver/33/trunk/iBattleShips/Classes/Scenes/CreditScene.h
+END

@@ -1,0 +1,152 @@
+//
+//  AdDisplayViewController.m
+//  iPuzzle
+//
+//  Created by Sajjad Raza on 8/27/10.
+//  Copyright 2010 Vizio-Mobile Inc. All rights reserved.
+//
+
+#import "AdDisplayViewController.h"
+
+
+@implementation AdDisplayViewController
+@synthesize adMobView;
+- (id) init
+{
+	self = [super init];
+	if (self != nil) {
+		
+	}
+	return self;
+}
+
+
+- (void)loadView 
+{
+	[super loadView];
+	self.adMobView = [AdMobView requestAdOfSize:ADMOB_SIZE_748x110 withDelegate:self];
+	// start a new ad request
+	self.adMobView.center = CGPointMake(self.view.bounds.size.width/2.0, self.view.bounds.size.height- (adMobView.bounds.size.height/2)); // position ad at the bottom of the view and centered horizontally
+	[self.view addSubview:adMobView];
+	
+}
+
+
+
+/*
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+   // NSLog(@"The Orientation is %@",interfaceOrientation);
+	if (interfaceOrientation ==UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight) 
+	{
+		adMobView.center = CGPointMake(1024/2, 768 - 50);
+	}
+	if (interfaceOrientation ==UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) 
+	{
+		adMobView.center = CGPointMake(768.0/2.0, 1024 - 60); // position ad at the bottom of the view and centered horizontally
+
+	}
+	
+	return YES;
+}
+
+*/
+
+
+
+- (void)dealloc {
+	[adMobView release];
+	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark AdMobDelegate methods
+
+- (NSString *)publisherIdForAd:(AdMobView *)adView {
+	return @"a14cff26b563280"; // this should be prefilled; if not, get it from www.admob.com
+}
+
+- (UIViewController *)currentViewControllerForAd:(AdMobView *)adView {
+	return self;
+}
+
+- (UIColor *)adBackgroundColorForAd:(AdMobView *)adView {
+	return [UIColor colorWithRed:0.498 green:0.565 blue:0.667 alpha:1]; // this should be prefilled; if not, provide a UIColor
+}
+
+- (UIColor *)primaryTextColorForAd:(AdMobView *)adView {
+	return [UIColor colorWithRed:1 green:1 blue:1 alpha:1]; // this should be prefilled; if not, provide a UIColor
+}
+
+- (UIColor *)secondaryTextColorForAd:(AdMobView *)adView {
+	return [UIColor colorWithRed:1 green:1 blue:1 alpha:1]; // this should be prefilled; if not, provide a UIColor
+}
+
+
+// To receive test ads rather than real ads...
+
+// Test ads are returned to these devices.  Device identifiers are the same used to register
+// as a development device with Apple.  To obtain a value open the Organizer 
+// (Window -> Organizer from Xcode), control-click or right-click on the device's name, and
+// choose "Copy Device Identifier".  Alternatively you can obtain it through code using
+// [UIDevice currentDevice].uniqueIdentifier.
+//
+// For example:
+//    - (NSArray *)testDevices {
+//      return [NSArray arrayWithObjects:
+//              ADMOB_SIMULATOR_ID,                             // Simulator
+//              //@"28ab37c3902621dd572509110745071f0101b124",  // Test iPhone 3GS 3.0.1
+//              //@"8cf09e81ef3ec5418c3450f7954e0e95db8ab200",  // Test iPod 2.2.1
+//              nil];
+//    }
+
+- (NSArray *)testDevices {
+	return [NSArray arrayWithObjects:ADMOB_SIMULATOR_ID,ADMOB_IPAD_ID,nil];
+}
+
+- (NSString *)testAdActionForAd:(AdMobView *)adMobView {
+	return @"url"; // see AdMobDelegateProtocol.h for a listing of valid values here
+}
+
+
+// Sent when an ad request loaded an ad; this is a good opportunity to attach
+// the ad view to the hierachy.
+- (void)didReceiveAd:(AdMobView *)adView 
+{
+	NSLog(@"AdMob: Did receive ad in AdViewController");
+	/*UIDeviceOrientation devOrient= [[UIDevice currentDevice] orientation];
+
+	if (devOrient == UIInterfaceOrientationLandscapeLeft || devOrient == UIInterfaceOrientationLandscapeRight) 
+	{
+		CGAffineTransform makeLandscape = CGAffineTransformMakeRotation(M_PI * 0.5f);
+		makeLandscape = CGAffineTransformTranslate(makeLandscape, -103, -144);
+		makeLandscape = CGAffineTransformScale(makeLandscape, 0.8f, 0.8f);
+		adView.transform = makeLandscape;
+		//adMobView.center = CGPointMake(0,0); // position ad at the bottom of the view and centered horizontally
+		//adView.center = CGPointMake(self.view.bounds.size.width/2.0, self.view.bounds.size.height- (adMobView.bounds.size.height/2)); // position ad at the bottom of the view and centered horizontally
+		
+		//[self shouldAutorotateToInterfaceOrientation:devOrient];
+	}
+	*/
+	[self.view addSubview:adView];
+	//cctimer=[CCTimer timerWithTarget:self selector:@selector(fire:)] ;
+	//[cctimer setInterval:0.1f];
+	//[[CCScheduler sharedScheduler] scheduleTimer:cctimer];
+	//[cctimer fire:0.1];
+}
+
+// Sent when an ad request failed to load an ad
+- (void)didFailToReceiveAd:(AdMobView *)adView 
+{
+	NSLog(@"AdMob: Did fail to receive ad in AdViewController");
+	
+	//[adView release];
+	adView = nil;
+	// we could start a new ad request here, but it is unlikely that anything has changed in the last few seconds,
+	// so in the interests of the user's battery life, let's not
+}
+
+
+
+
+@end

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/ibattleship/!svn/ver/145/trunk/iBattleShips/Classes/AdMob
+END
+AdDisplayViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/ibattleship/!svn/ver/57/trunk/iBattleShips/Classes/AdMob/AdDisplayViewController.h
+END
+AdMobInterstitialDelegateProtocol.h
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/ibattleship/!svn/ver/57/trunk/iBattleShips/Classes/AdMob/AdMobInterstitialDelegateProtocol.h
+END
+AdMobView.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/ibattleship/!svn/ver/57/trunk/iBattleShips/Classes/AdMob/AdMobView.h
+END
+AdDisplayViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/ibattleship/!svn/ver/145/trunk/iBattleShips/Classes/AdMob/AdDisplayViewController.m
+END
+AdMobDelegateProtocol.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/ibattleship/!svn/ver/57/trunk/iBattleShips/Classes/AdMob/AdMobDelegateProtocol.h
+END
+libAdMob.a
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/ibattleship/!svn/ver/58/trunk/iBattleShips/Classes/AdMob/libAdMob.a
+END
+AdMobInterstitialAd.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/ibattleship/!svn/ver/57/trunk/iBattleShips/Classes/AdMob/AdMobInterstitialAd.h
+END

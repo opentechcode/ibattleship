@@ -1,0 +1,26 @@
+//
+//  OnlineCompetitionManager.h
+//  iPuzzle
+//
+//  Created by Ali Zafar on 6/21/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "HighScore.h"
+#import "NetworkWrapper.h"
+
+@interface OnlineCompetitionManager : NSObject {
+
+
+
+}
++(OnlineCompetitionManager *) sharedOnlineCompetitionmanager;
+-(NSArray *)getHighScores;
+-(BOOL)isNetworkAvailableSimpleCheck;
+-(BOOL)isNetworkAvailable;
+-(BOOL)submitScore:(HighScore *)score;
+
+
+
+@end

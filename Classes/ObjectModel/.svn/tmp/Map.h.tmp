@@ -1,0 +1,51 @@
+//
+//  Map.h
+//  iBattleShips
+//
+//  Created by Ali Zafar on 9/30/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "Ship.h"
+#import "Cell.h"
+#import "AIGuessGenerator.h"
+@interface Map : NSObject 
+{
+
+	NSMutableArray *cells;
+	NSMutableArray *blastArray;
+	int lastHitCell;
+	int lastBlastCell;
+	
+	
+	AIGuessGenerator *guessGenerator;
+	
+	int mapState;
+	int mapType;
+}
+
+@property (nonatomic, retain)NSMutableArray *cells;
+
+@property (readwrite)int lastHitCell;
+@property (readwrite)int lastBlastCell;
+@property (readwrite)int mapType;
+
+@property (readwrite)int mapState;
+@property (nonatomic, retain)AIGuessGenerator *guessGenerator;
+@property (nonatomic, retain)NSMutableArray *blastArray;
+
+-(BOOL)deployShip:(Ship *)ship atLocation:(CGPoint)dropPosition;
+
+
+-(NSMutableArray *)getNeighbors:(int)cellNumber;
+
+-(int)getCellNumberByLocation:(CGPoint)location;
+-(BOOL)isCellAvailable:(int)cellNumber;
+
+-(BOOL)deployShip:(Ship *)ship atLocation:(CGPoint)dropPosition;
+-(BOOL)deployHorizontalShip:(Ship *)ship atLocation:(CGPoint)dropPosition;
+-(BOOL)deployVerticalShip:(Ship *)ship atLocation:(CGPoint)dropPosition;
+-(void) fillCellLocationsInArrayWithMapType:(int)mapIdentifier;
+-(int)nextHit;
+@end

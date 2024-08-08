@@ -1,0 +1,95 @@
+//
+//  HighScoreLocalLayer.m
+//  iBattleShips
+//
+//  Created by Ali Zafar on 10/29/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import "HighScoreLocalLayer.h"
+#import "HighScoreManager.h"
+#import "HighScore.h"
+@implementation HighScoreLocalLayer
+@synthesize highscores;
+- (id) init
+{
+	self = [super init];
+	if (self != nil) {
+		self.highscores=[CCSprite spriteWithFile:@"localHighScores_text.png"];
+		[highscores setPosition:CGPointMake(512, 565)];
+	//	[self populateLayer];
+				
+	}
+	return self;
+}
+
+
+-(void)populateLayer
+{
+	[self removeAllChildrenWithCleanup:YES];
+	[self addChild:highscores];
+	HighScoreManager *scoreManager= [[HighScoreManager alloc] init];
+	
+	
+	int x=200;
+	int y=485;
+	int xShift=190;
+	int count=0;
+	for (HighScore *score  in  scoreManager.localArray) 
+	{	
+		x=200;
+		count+=1;
+		
+		//NSLog(@"%@",score.name);	
+		
+		CCLabel *rank=[CCLabel labelWithString:[NSString stringWithFormat:@"%d",count] fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TEXT_SIZE];
+		[rank setColor:ccBLACK];
+		[rank setPosition:CGPointMake(x, y)];
+		[self addChild:rank];
+		
+		x+=xShift;
+		
+		
+		CCLabel *name=[CCLabel labelWithString:score.name dimensions:CGSizeMake(150, 30) alignment:UITextAlignmentLeft fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TEXT_SIZE];
+		
+		[name setColor:ccBLACK];
+		[name setPosition:CGPointMake(x, y)];
+		[self addChild:name];
+		x+=xShift;
+		
+		
+		CCLabel *shots=[CCLabel labelWithString:[NSString stringWithFormat:@"%d",score.shots] fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TEXT_SIZE];
+		[shots setColor:ccBLACK];
+		[shots setPosition:CGPointMake(x, y)];
+		[self addChild:shots];
+		x+=xShift;
+		//[Utility secondsToTimeConversion:score.time];
+		CCLabel *time=[CCLabel labelWithString:[[Utility secondsToTimeConversion:score.time] retain] fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TEXT_SIZE];
+		[time setColor:ccBLACK];
+		[time setPosition:CGPointMake(x, y)];
+		[self addChild:time];
+		x+=xShift;
+		
+		/*
+		CCLabel *gamMode=[CCLabel labelWithString:[NSString stringWithFormat:@"%d",score.gameMode] fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TEXT_SIZE];
+		[gamMode setColor:ccBLACK];
+		[gamMode setPosition:CGPointMake(x, y)];
+		[self addChild:gamMode];
+		*/
+		y-=25;
+		
+	}	
+	
+	
+}
+
+
+- (void) dealloc
+{
+	[self removeAllChildrenWithCleanup:YES];
+	[highscores release];
+	[super dealloc];
+}
+
+
+@end

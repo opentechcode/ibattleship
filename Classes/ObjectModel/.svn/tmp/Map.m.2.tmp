@@ -1,0 +1,515 @@
+//
+//  Map.m
+//  iBattleShips
+//
+//  Created by Ali Zafar on 9/30/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import "Map.h"
+#import "Cell.h"
+
+@implementation Map
+
+@synthesize cells,lastHitCell,lastBlastCell,mapState,guessGenerator,mapType,blastArray;
+
+
+- (id) init
+{
+	self = [super init];
+	if (self != nil) {
+		
+		NSMutableArray *tempArray= [[NSMutableArray alloc] initWithCapacity:100];
+		self.cells=tempArray;
+		[tempArray release];
+		
+		tempArray= [[NSMutableArray alloc] init];
+		self.blastArray=tempArray;
+		
+		AIGuessGenerator *tempGuessGenerator= [[AIGuessGenerator alloc] init];
+		self.guessGenerator=tempGuessGenerator;
+		[tempGuessGenerator release];
+		
+		for (int i=0; i<100; i++) 
+		{
+			
+			
+			[cells insertObject: [[Cell alloc] initWithcellNumber:i+1] atIndex:i];
+			
+			lastHitCell=-1;
+			
+			lastBlastCell=-1;
+			
+			mapState=CONST_MAP_STATE_SIMPLE;
+			
+			
+		}
+		
+		
+	}
+	return self;
+}
+
+
+
+
+-(void) fillCellLocationsInArrayWithMapType:(int)mapIdentifier
+{
+	
+	NSString *thePath = [[NSBundle mainBundle]  pathForResource:@"MapLocations" ofType:@"plist"];
+	NSDictionary *mapLocation = [[NSDictionary alloc] initWithContentsOfFile:thePath];		
+	NSArray *locations;
+	
+	if (mapIdentifier ==ENEMY_IDENTIFIER) 
+	{
+		locations = [[NSArray alloc] initWithArray:[mapLocation objectForKey:@"Enemy"]];	
+	}
+	else if(mapIdentifier == PLAYER_IDENTIFIER)
+	{
+		locations = [[NSArray alloc] initWithArray:[mapLocation objectForKey:@"Player"] ];	
+
+	}
+	NSDictionary *locationDict;
+	for (int i=0; i<100; i++) 
+	{
+		locationDict = [locations objectAtIndex:i];
+		[[self.cells objectAtIndex:i] setPosX:[[locationDict objectForKey:@"X"] floatValue]];
+		[[self.cells objectAtIndex:i] setPosY:[[locationDict objectForKey:@"Y"] floatValue]];
+
+	}
+	
+	[mapLocation release];
+	[locations release];
+}
+
+
+
+-(BOOL)deployShip:(Ship *)ship atLocation:(CGPoint)dropPosition {
+	
+	int cellNumber=[self getCellNumberByLocation:dropPosition];
+	
+	if (ship.shipCurrentOrientation==CONST_SHIP_ORIENTATION_VERTICAL_UP || ship.shipCurrentOrientation==CONST_SHIP_ORIENTATION_VERTICAL_Down) {
+	
+		return	[self deployVerticalShip:ship atCell:cellNumber];
+	}
+	else {
+	
+		return [self deployHorizontalShip:ship atCell:cellNumber];
+	
+	}
+
+	return NO;
+	
+}
+
+
+
+
+-(BOOL)deployVerticalShip:(Ship *)ship atCell:(int)cellNumber
+{
+	//get the cell number that need to be occupied
+	NSDictionary *cellOccupationDict=[ship getOccupiedCellsDirections];
+	//int cellNumber=[self getCellNumberByLocation:dropPosition];
+	
+	if(cellNumber==-1)
+	{
+		return NO;
+	}
+	
+	
+	
+    NSArray *upArray=[cellOccupationDict objectForKey:CONST_CELLS_DIRECTION_UPWARD];
+	int neighborcellnumber=cellNumber;
+	
+	for (int i=0;i<[upArray count];i++) {
+		
+		neighborcellnumber=[Utility upperCell:neighborcellnumber];
+		
+		
+		if(neighborcellnumber==-1 || ![self isCellAvailable:neighborcellnumber])    //-1 means cell is out of grid space and function returns true if cell is empty and not occupied by any ship
+		{
+			return NO;
+		}
+				
+		
+		
+	}
+	
+	
+	NSArray *downArray	=[cellOccupationDict objectForKey:CONST_CELLS_DIRECTION_DOWNWARDS];
+	
+	neighborcellnumber=cellNumber;
+	
+	for (int i=0;i<[downArray count];i++) {
+		
+		neighborcellnumber=[Utility downwardCell:neighborcellnumber];
+		if(neighborcellnumber==-1 || ![self isCellAvailable:neighborcellnumber]) 
+		{
+			return NO;
+		}	
+		
+		
+	}
+	
+	
+	
+	NSArray *parralelArray = [cellOccupationDict objectForKey:CONST_CELLS_DIRECTION_PARALLEL];
+	neighborcellnumber=cellNumber;
+	for (int i=0;i<[parralelArray count];i++) {
+		
+		
+		if(![self isCellAvailable:neighborcellnumber])
+		{
+			return NO;
+		}	
+		
+				
+	}
+	
+	
+	
+	//code come here if all cells where ship need to be deployed are available
+	// clear the cells of ship
+	
+	for (int i=0 ; i<[ship.cellsCoverArray count] ; i++) {
+		
+	 Cell *cell =	[ship.cellsCoverArray objectAtIndex:i];	
+		cell.cellOccupationState=CONST_CELL_OCCUPATION_STATE_EMPTY;
+		
+		
+	}
+	
+	[ship.cellsCoverArray removeAllObjects];
+	neighborcellnumber=cellNumber;
+
+	for (int i=0;i<[upArray count];i++) {
+		
+		neighborcellnumber=[Utility upperCell:neighborcellnumber];
+		
+	 Cell *cell=	[self.cells objectAtIndex:neighborcellnumber];
+	 cell.cellOccupationState=CONST_CELL_OCCUPATION_STATE_SHIP;
+	 [ship.cellsCoverArray addObject:cell];
+		
+	}	
+	
+	neighborcellnumber=cellNumber;
+	for (int i=0;i<[downArray count];i++) {
+		
+		neighborcellnumber=[Utility downwardCell:neighborcellnumber];
+		
+		Cell *cell=	[self.cells objectAtIndex:neighborcellnumber];
+		cell.cellOccupationState=CONST_CELL_OCCUPATION_STATE_SHIP;
+		[ship.cellsCoverArray addObject:cell];
+		
+	}	
+	
+	neighborcellnumber=cellNumber;
+	for (int i=0;i<[parralelArray count];i++) {
+		
+		neighborcellnumber=neighborcellnumber;
+		
+		Cell *cell=	[self.cells objectAtIndex:neighborcellnumber];
+		cell.cellOccupationState=CONST_CELL_OCCUPATION_STATE_SHIP;
+		[ship.cellsCoverArray addObject:cell];
+		
+	}
+	
+	
+	return YES;
+
+	
+}
+
+
+
+-(BOOL)deployHorizontalShip:(Ship *)ship atCell:(int)cellNumber
+{
+	//get the cell number that need to be occupied
+	NSDictionary *cellOccupationDict=[ship getOccupiedCellsDirections];
+	//int cellNumber=[self getCellNumberByLocation:dropPosition];
+	
+	if(cellNumber==-1)
+	{
+		return NO;
+	}
+	
+	
+	
+    NSArray *rightArray=[cellOccupationDict objectForKey:CONST_CELLS_DIRECTION_RIGHTWARDS];
+	
+	int neighborcellnumber=cellNumber;
+	
+	for (int i=0;i<[rightArray count];i++) {
+		
+		neighborcellnumber=[Utility rightCell:neighborcellnumber];
+		
+		
+		if(neighborcellnumber==-1 || ![self isCellAvailable:neighborcellnumber])    //-1 means cell is out of grid space and function returns true if cell is empty and not occupied by any ship
+		{
+			return NO;
+		}
+				
+		
+	}
+	
+	
+	
+	NSArray *leftArray	=[cellOccupationDict objectForKey:CONST_CELLS_DIRECTION_LEFTWARDS];
+	
+	neighborcellnumber=cellNumber;
+	
+	for (int i=0;i<[leftArray count];i++) {
+		
+		neighborcellnumber=[Utility leftCell:neighborcellnumber];
+		if(neighborcellnumber==-1 || ![self isCellAvailable:neighborcellnumber]) 
+		{
+			return NO;
+		}	
+		
+		
+	}
+	
+	
+	
+	NSArray *parralelArray = [cellOccupationDict objectForKey:CONST_CELLS_DIRECTION_PARALLEL];
+	neighborcellnumber=cellNumber;
+	for (int i=0;i<[parralelArray count];i++) {
+		
+		
+		if(![self isCellAvailable:neighborcellnumber])
+		{
+			return NO;
+		}	
+		
+		
+	}
+	
+	
+	
+	//code come here if all cells where ship need to be deployed are available
+	// clear the cells of ship
+	
+	
+	for (int i=0 ; i<[ship.cellsCoverArray count] ; i++) {
+		
+		Cell *cell =	[ship.cellsCoverArray objectAtIndex:i];	
+		cell.cellOccupationState=CONST_CELL_OCCUPATION_STATE_EMPTY;
+		
+		
+	}
+	
+	[ship.cellsCoverArray removeAllObjects];
+	
+	
+	
+	neighborcellnumber=cellNumber;
+	
+	for (int i=0;i<[rightArray count];i++) {
+		
+		neighborcellnumber=[Utility rightCell:neighborcellnumber];
+		
+		Cell *cell=	[self.cells objectAtIndex:neighborcellnumber];
+		cell.cellOccupationState=CONST_CELL_OCCUPATION_STATE_SHIP;
+		[ship.cellsCoverArray addObject:cell];
+		
+	}	
+	
+	neighborcellnumber=cellNumber;
+	for (int i=0;i<[leftArray count];i++) {
+		
+		neighborcellnumber=[Utility leftCell:neighborcellnumber];
+		
+		Cell *cell=	[self.cells objectAtIndex:neighborcellnumber];
+		cell.cellOccupationState=CONST_CELL_OCCUPATION_STATE_SHIP;
+		[ship.cellsCoverArray addObject:cell];
+		
+	}	
+	
+	neighborcellnumber=cellNumber;
+
+	for (int i=0;i<[parralelArray count];i++) {
+		
+		neighborcellnumber=neighborcellnumber;
+		
+		Cell *cell=	[self.cells objectAtIndex:neighborcellnumber];
+		cell.cellOccupationState=CONST_CELL_OCCUPATION_STATE_SHIP;
+		[ship.cellsCoverArray addObject:cell];
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	return YES;
+}
+
+#pragma mark CellAvailability
+
+/*
+ 
+ cell is available if it is empty
+ 
+ */
+
+
+-(BOOL)isCellAvailable:(int)cellNumber
+{
+	
+    Cell *cell=	[cells objectAtIndex:cellNumber];
+	
+	if(cell.cellOccupationState==CONST_CELL_OCCUPATION_STATE_EMPTY)
+	{
+		return YES;
+	}
+	
+	return NO	;
+
+}
+
+/*
+ this function will take the drop point and will return the cell number at that location or if it corresponds to no cell 
+ then return -1
+ */
+
+ 	
+-(int)getCellNumberByLocation:(CGPoint)location
+{
+	
+	float minDistance = MIN_VALUE;
+	
+	int selectedCellIndex= -1;
+	
+	for (int i=0; i< self.cells.count ; i++)
+	{
+		Cell *cell = [self.cells objectAtIndex:i];
+		float pointDistance = [Utility getDistanceCentrePointandTouch:CGPointMake(cell.posX, cell.posY) TouchLocation:location]; 
+		if (minDistance > pointDistance) 
+		{
+			minDistance = pointDistance;
+			 selectedCellIndex = i;
+		}
+		
+	}
+	
+	if (selectedCellIndex !=-1 && minDistance <= MINDISTANCE) 
+	{
+		//CCSprite *coloredSqaure = [CCSprite spriteWithFile:@"square_orange.png"];
+		NSLog(@"The Mindistance is = %f and the selectedIndex is =%d",minDistance,selectedCellIndex);
+		return selectedCellIndex;
+	}
+	else {
+		return -1;
+	}
+
+	//return location.x;
+			
+}
+
+
+#pragma mark Functions for obtaining neighbor of current cells
+
+/*
+ 
+ This function will return the array of neighbors up down left and right
+ 
+*/
+
+
+
+-(NSMutableArray *)getNeighbors:(int)cellNumber
+{
+	NSMutableArray *returningArray= [[NSMutableArray alloc] init];
+	
+	int returnCellNumber=[Utility upperCell:cellNumber];
+	
+	if (returnCellNumber != -1) {
+		[returningArray addObject:[NSNumber numberWithInt:returnCellNumber] ];
+	}
+	
+	
+	
+	returnCellNumber=[Utility downwardCell:cellNumber];
+	
+	if (returnCellNumber != -1) {
+		[returningArray addObject:[NSNumber numberWithInt:returnCellNumber] ];
+	}
+	
+	returnCellNumber=[Utility rightCell:cellNumber];
+	if (returnCellNumber != -1) {
+		[returningArray addObject:[NSNumber numberWithInt:returnCellNumber] ];
+	}
+	
+	returnCellNumber=[Utility leftCell:cellNumber];
+	
+	if (returnCellNumber != -1) {
+		[returningArray addObject:[NSNumber numberWithInt:returnCellNumber] ];
+	}
+	
+	
+	return [returningArray autorelease];
+	
+		
+}
+
+#pragma mark AIGuessGenerator methods
+
+-(int)nextHit
+{
+	int cellAttacked=-1;
+	if (mapState==CONST_MAP_STATE_SIMPLE) {
+		
+		cellAttacked=   [guessGenerator cellToAttack];
+		NSLog(@"%d",cellAttacked);
+	}
+	else
+	{
+		
+		cellAttacked=   [guessGenerator cellToAttackWhileMapUnderDestruction:blastArray];
+		NSLog(@"%d",cellAttacked);
+	}
+	if(cellAttacked==-1)
+	{
+		return cellAttacked;
+	}
+	
+	Cell *cell=[cells objectAtIndex:cellAttacked-1];
+	
+	if(cell.cellOccupationState==CONST_CELL_OCCUPATION_STATE_SHIP)
+	{
+		cell.cellHitState=CONST_CELL_HIT_STATUS_BLAST;
+		self.mapState=CONST_MAP_STATE_SHIP_UNDER_DESTRUCTION;
+		[blastArray addObject:[NSNumber numberWithInt:cellAttacked]];
+		NSLog(@"Ship Got hit");
+	}
+	else {
+	
+		cell.cellHitState=CONST_CELL_HIT_STATUS_MISSED;
+		
+		if ([blastArray count]>1) {
+			NSRange range={1,[blastArray count]-1};
+			[blastArray removeObjectsInRange:range];
+		}
+		
+	
+	}
+	
+	
+	return cellAttacked;
+	
+	//[guessGenerator cellToAttackWhileMapUnderDestruction:<#(NSMutableArray *)blastArray#>]
+	
+}
+
+- (void) dealloc
+{
+	[cells release];
+	[blastArray release];
+	[guessGenerator release];
+	[super dealloc];
+}
+
+
+@end

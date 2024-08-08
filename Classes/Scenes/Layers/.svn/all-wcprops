@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/Scenes/Layers
+END
+GlobalScoresScrollView.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/ibattleship/!svn/ver/137/trunk/iBattleShips/Classes/Scenes/Layers/GlobalScoresScrollView.h
+END
+GameWinLayer.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/ibattleship/!svn/ver/127/trunk/iBattleShips/Classes/Scenes/Layers/GameWinLayer.m
+END
+HighScoreGlobalLayer.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/ibattleship/!svn/ver/121/trunk/iBattleShips/Classes/Scenes/Layers/HighScoreGlobalLayer.h
+END
+ObjectsLayer.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/Scenes/Layers/ObjectsLayer.m
+END
+MainMenuScene.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/ibattleship/!svn/ver/249/trunk/iBattleShips/Classes/Scenes/Layers/MainMenuScene.m
+END
+HighScoreGlobalLayer.m
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/ibattleship/!svn/ver/145/trunk/iBattleShips/Classes/Scenes/Layers/HighScoreGlobalLayer.m
+END
+GlobalScoresScrollView.m
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/ibattleship/!svn/ver/137/trunk/iBattleShips/Classes/Scenes/Layers/GlobalScoresScrollView.m
+END
+GameLostLayer.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/ibattleship/!svn/ver/89/trunk/iBattleShips/Classes/Scenes/Layers/GameLostLayer.h
+END
+GameplayGadgetLayer.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/ibattleship/!svn/ver/235/trunk/iBattleShips/Classes/Scenes/Layers/GameplayGadgetLayer.h
+END
+GameLostLayer.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/ibattleship/!svn/ver/209/trunk/iBattleShips/Classes/Scenes/Layers/GameLostLayer.m
+END
+GameplayGadgetLayer.m
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/Scenes/Layers/GameplayGadgetLayer.m
+END
+HighScoreLocalLayer.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/ibattleship/!svn/ver/121/trunk/iBattleShips/Classes/Scenes/Layers/HighScoreLocalLayer.h
+END
+GameWinLayer.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Classes/Scenes/Layers/GameWinLayer.h
+END
+ObjectsLayer.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/ibattleship/!svn/ver/249/trunk/iBattleShips/Classes/Scenes/Layers/ObjectsLayer.h
+END
+MainMenuScene.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/ibattleship/!svn/ver/249/trunk/iBattleShips/Classes/Scenes/Layers/MainMenuScene.h
+END
+HighScoreLocalLayer.m
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/ibattleship/!svn/ver/219/trunk/iBattleShips/Classes/Scenes/Layers/HighScoreLocalLayer.m
+END

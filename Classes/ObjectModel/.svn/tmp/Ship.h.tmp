@@ -1,0 +1,58 @@
+//
+//  Ship.h
+//  iBattleShips
+//
+//  Created by Ali Zafar on 9/30/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "Cell.h"
+
+@interface Ship : NSObject {
+
+	CCSprite *shipSprite;
+	CGPoint originalPosition;
+	CGPoint deployedPosition;
+	
+	
+	NSMutableArray *cellsCoverArray;
+	
+	NSDictionary *cellsDictionary;
+	
+	NSString *shipCurrentOrientation;
+	NSString *shipType;
+	
+	int shipLifeState;
+	
+	float xAdjustment;
+	float yAdjustment;
+	
+	BOOL isDeployed;
+	BOOL shouldbeRemoved;
+	
+}
+
+@property(nonatomic, retain)CCSprite *shipSprite;
+@property (nonatomic, retain)NSMutableArray *cellsCoverArray;
+@property (nonatomic, retain)NSDictionary *cellsDictionary;
+@property (readwrite) float xAdjustment;
+@property (readwrite) float yAdjustment;
+@property (readwrite) BOOL shouldbeRemoved;
+@property (readwrite)CGPoint originalPosition;
+@property (readwrite)CGPoint deployedPosition;
+@property (readwrite) BOOL isDeployed;
+@property (nonatomic, retain)NSString *shipCurrentOrientation;
+@property (nonatomic, retain)NSString *shipType;
+
+
+-(Ship *)initWithShipType:(NSString *)shipType andOrientation:(NSString *)currentShipOrientation;
+
+-(NSDictionary *)getOccupiedCellsDirections;
+-(void)getShipDeploymentDetails;
+-(void)undeployShip;
+-(BOOL)isShipDestroyed;
+-(BOOL)isPartiallyDemaged;
+-(BOOL)amITouchedatPoint:(CGPoint)point;
+
+@end

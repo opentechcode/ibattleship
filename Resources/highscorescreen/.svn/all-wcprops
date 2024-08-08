@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/ibattleship/!svn/ver/230/trunk/iBattleShips/Resources/highscorescreen
+END
+localHighScores_text.png
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/ibattleship/!svn/ver/121/trunk/iBattleShips/Resources/highscorescreen/localHighScores_text.png
+END
+btn_globalscores_press.png
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/ibattleship/!svn/ver/230/trunk/iBattleShips/Resources/highscorescreen/btn_globalscores_press.png
+END
+globalHighScore_text.png
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/ibattleship/!svn/ver/121/trunk/iBattleShips/Resources/highscorescreen/globalHighScore_text.png
+END
+btn_clearHighscore_press.png
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/ibattleship/!svn/ver/90/trunk/iBattleShips/Resources/highscorescreen/btn_clearHighscore_press.png
+END
+btn_globalscores_unpress.png
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/ibattleship/!svn/ver/230/trunk/iBattleShips/Resources/highscorescreen/btn_globalscores_unpress.png
+END
+btn_clearHighscore_unpress.png
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/ibattleship/!svn/ver/90/trunk/iBattleShips/Resources/highscorescreen/btn_clearHighscore_unpress.png
+END
+btn_localScores_press.png
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Resources/highscorescreen/btn_localScores_press.png
+END
+txt_highscore.png
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/ibattleship/!svn/ver/99/trunk/iBattleShips/Resources/highscorescreen/txt_highscore.png
+END
+btn_localScores_unpress.png
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Resources/highscorescreen/btn_localScores_unpress.png
+END

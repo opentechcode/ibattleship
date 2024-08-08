@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/TouchJSON/Extensions
+END
+NSScanner_Extensions.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/TouchJSON/Extensions/NSScanner_Extensions.h
+END
+CDataScanner_Extensions.m
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/TouchJSON/Extensions/CDataScanner_Extensions.m
+END
+NSCharacterSet_Extensions.m
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/TouchJSON/Extensions/NSCharacterSet_Extensions.m
+END
+NSScanner_Extensions.m
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/TouchJSON/Extensions/NSScanner_Extensions.m
+END
+NSDictionary_JSONExtensions.h
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/TouchJSON/Extensions/NSDictionary_JSONExtensions.h
+END
+NSDictionary_JSONExtensions.m
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/TouchJSON/Extensions/NSDictionary_JSONExtensions.m
+END
+CDataScanner_Extensions.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/TouchJSON/Extensions/CDataScanner_Extensions.h
+END
+NSCharacterSet_Extensions.h
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/TouchJSON/Extensions/NSCharacterSet_Extensions.h
+END

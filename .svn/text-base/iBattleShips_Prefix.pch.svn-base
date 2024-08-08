@@ -1,0 +1,17 @@
+//
+// Prefix header for all source files of the 'iBattleShips' target in the 'iBattleShips' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+#import "cocos2d.h"
+#import "GameManager.h"
+#import "Constant.h"
+#import "Utility.h"
+#import "iBattleShipsSound.h"
+#import "iBattleShipsAppDelegate.h"
+#import "GameSettings.h"
+
+#import <GameKit/GameKit.h>
+#endif

@@ -1,0 +1,356 @@
+//
+//  GameProcessor.m
+//  iBattleShips
+//
+//  Created by Ali Zafar on 9/30/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import "GameProcessor.h"
+#import "Ship.h"
+
+@implementation GameProcessor
+@synthesize playerMap,enemyMap, playerShips, enemyShips;
+
+- (id) init
+{
+	self = [super init];
+	if (self != nil) {
+		
+		Map *tempMap= [[Map alloc] init];
+		self.playerMap=tempMap;
+		[self.playerMap fillCellLocationsInArrayWithMapType:PLAYER_IDENTIFIER];
+		[tempMap release];
+		
+		tempMap=[[Map alloc] init];
+		self.enemyMap=tempMap;
+		[self.enemyMap fillCellLocationsInArrayWithMapType:ENEMY_IDENTIFIER];
+        [tempMap release];
+		
+		
+		NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+		self.playerShips=tempArray;
+		[tempArray release];
+		
+		
+		tempArray = [[NSMutableArray alloc] init];
+		self.enemyShips=tempArray;
+		[tempArray release];
+		
+		
+		currentPlayerShipsDestroyed =0;
+		currentEnemyShipsDestroyed  =0;
+		
+		[self initializePlayerShips];
+		[self initializeEnemyShips];
+		
+		
+		[self autoDeployEnemyShips];
+		
+	
+	}
+	return self;
+}
+
+
+
+
+-(void)initializePlayerShips
+{
+    Ship *ship=	[[Ship alloc] initWithShipType:CONST_SHIP_TYPE_AIRCRAFT_CARRIER andOrientation:CONST_SHIP_ORIENTATION_VERTICAL_UP];
+	[playerShips addObject:ship];
+	[ship release];
+
+    ship =	[[Ship alloc] initWithShipType:CONST_SHIP_TYPE_DESTROYER andOrientation:CONST_SHIP_ORIENTATION_VERTICAL_UP];
+	[playerShips addObject:ship];
+	[ship release];
+	
+	
+	ship =	[[Ship alloc] initWithShipType:CONST_SHIP_TYPE_FIGHTER_BOAT andOrientation:CONST_SHIP_ORIENTATION_VERTICAL_UP];
+	[playerShips addObject:ship];
+	[ship release];
+
+	
+
+	ship = [[Ship alloc] initWithShipType:CONST_SHIP_TYPE_GUNSHIP_BOAT andOrientation:CONST_SHIP_ORIENTATION_HORIZONTAL_Right];
+	[playerShips addObject:ship];
+	[ship release];
+
+	
+
+	ship =	[[Ship alloc] initWithShipType:CONST_SHIP_TYPE_WARRIOR andOrientation:CONST_SHIP_ORIENTATION_VERTICAL_UP];
+	[playerShips addObject:ship];
+	[ship release];
+
+	
+	ship=[playerShips objectAtIndex:0];
+	if([playerMap deployShip:ship atLocation:CGPointMake(10, 0)])
+	{
+		[ship getShipDeploymentDetails];
+	}
+	else {
+		NSLog(@"%@ could not be deployed",ship.shipType);
+	}
+
+	
+	ship=[playerShips objectAtIndex:1];
+	if([playerMap deployShip:ship atLocation:CGPointMake(45, 0)])
+	{
+		[ship getShipDeploymentDetails];
+	}else {
+		NSLog(@"%@ could not be deployed",ship.shipType);
+	}
+
+	
+	ship=[playerShips objectAtIndex:2];
+	if([playerMap deployShip:ship atLocation:CGPointMake(63, 0)])
+	{
+		[ship getShipDeploymentDetails];
+	}
+	else {
+		NSLog(@"%@ could not be deployed",ship.shipType);
+	}
+
+	
+	
+	ship=[playerShips objectAtIndex:3];
+
+	if([playerMap deployShip:ship atLocation:CGPointMake(4, 0)])
+	{
+		
+		[ship getShipDeploymentDetails];
+		
+		
+	}else {
+		NSLog(@"%@ could not be deployed",ship.shipType);
+	}
+	
+	for (int i=0; i<100; i++) {
+		NSLog(@"Hit Number-- %d--",i);
+		[playerMap nextHit];
+		if ([self hasMorePlayerShipDestroyed]) {
+			NSLog(@"A ship hit");
+			playerMap.mapState=CONST_MAP_STATE_SIMPLE;
+			[playerMap.blastArray removeAllObjects];
+		}
+	}
+	
+	NSLog(@"End Of hits");
+	/*
+	ship=[playerShips objectAtIndex:4];
+	if([playerMap deployShip:ship atLocation:CGPointMake(74, 0)])
+	{
+		[ship getShipDeploymentDetails];
+	}else {
+		NSLog(@"%@ could not be deployed",ship.shipType);
+	}
+	*/
+	
+	
+	
+
+}
+
+
+
+-(void)initializeEnemyShips
+{
+	
+	Ship *ship=	[[Ship alloc] initWithShipType:CONST_SHIP_TYPE_AIRCRAFT_CARRIER andOrientation:CONST_SHIP_ORIENTATION_VERTICAL_UP];
+	[enemyShips addObject:ship];
+	[ship release];
+	
+	
+	
+    ship =	[[Ship alloc] initWithShipType:CONST_SHIP_TYPE_DESTROYER andOrientation:CONST_SHIP_ORIENTATION_VERTICAL_UP];
+	[enemyShips addObject:ship];
+	[ship release];
+	
+	
+	
+	ship =	[[Ship alloc] initWithShipType:CONST_SHIP_TYPE_FIGHTER_BOAT andOrientation:CONST_SHIP_ORIENTATION_VERTICAL_UP];
+	[enemyShips addObject:ship];
+	[ship release];
+	
+	
+	
+	ship = [[Ship alloc] initWithShipType:CONST_SHIP_TYPE_GUNSHIP_BOAT andOrientation:CONST_SHIP_ORIENTATION_VERTICAL_UP];
+	[enemyShips addObject:ship];
+	[ship release];
+	
+	
+	
+	ship =	[[Ship alloc] initWithShipType:CONST_SHIP_TYPE_WARRIOR andOrientation:CONST_SHIP_ORIENTATION_VERTICAL_UP];
+	[enemyShips addObject:ship];
+	[ship release];
+	
+	
+	
+}
+
+// will be called by front end layer class to deploy ship at particular location
+-(BOOL)deployPlayerShip:(Ship *)ship atLocation:(CGPoint)dropPosition
+{
+	[playerMap deployShip:ship atLocation:dropPosition];
+
+	return NO;
+	
+}
+
+-(BOOL)deployEnemyShip:(Ship *)ship atLocation:(CGPoint)dropPosition
+{
+	[enemyMap deployShip:ship atLocation:dropPosition];
+	
+	return NO;
+}
+
+
+-(BOOL)hasMorePlayerShipDestroyed
+{
+	int destructionCount=0;
+	
+	for (int i=0; i<[playerShips count]; i++) {
+		
+	Ship *ship=	[playerShips objectAtIndex:i];
+			if ([ship isShipDestroyed]) {
+				destructionCount+=1;
+			
+			}
+		
+		 
+	}
+	
+	if (destructionCount  >  currentPlayerShipsDestroyed) {
+		
+		currentPlayerShipsDestroyed = destructionCount;
+		
+		return YES;
+		
+	}
+	
+	
+	
+	return NO;
+	
+}
+
+
+-(void)autoDeployEnemyShips
+{
+	NSMutableArray *tempCountingArray= [[NSMutableArray alloc] init];
+	
+	for (int i=0; i<100;i++) {
+		
+		NSMutableDictionary *dict= [[NSMutableDictionary alloc] init];
+		[dict setObject:[NSNumber numberWithBool:NO] forKey:@"used"];
+		[dict setObject:[NSNumber numberWithInt:i+1] forKey:@"number"];
+		
+		[tempCountingArray addObject:dict];
+		
+		
+		
+	}
+	
+	[Utility simpleShuffle:tempCountingArray];
+	
+	NSMutableArray *directionArray= [[NSMutableArray alloc] init];
+	
+	[directionArray addObject:CONST_SHIP_ORIENTATION_VERTICAL_UP];
+	[directionArray addObject:CONST_SHIP_ORIENTATION_VERTICAL_Down];
+	[directionArray addObject:CONST_SHIP_ORIENTATION_HORIZONTAL_Right];
+	[directionArray addObject:CONST_SHIP_ORIENTATION_HORIZONTAL_LEFT];
+	
+	
+	
+	[Utility simpleShuffle:directionArray];
+	
+	
+	
+	for (int j=0; j<[enemyShips count]; j++) {
+		
+		Ship *ship=[enemyShips objectAtIndex:j];
+		
+		[Utility simpleShuffle:directionArray];
+			
+		BOOL isShipDeployed=NO;
+		
+		for (int orientCount=0; orientCount<4; orientCount+=1) {
+			
+			//[Utility simpleShuffle:directionArray];
+			NSLog(@"%@",directionArray);
+			
+			for (int i=0; i<[tempCountingArray count]; i++) {
+				
+			
+				ship.shipCurrentOrientation= [directionArray objectAtIndex:orientCount] ;
+				
+				if ([ship.shipCurrentOrientation isEqualToString:CONST_SHIP_ORIENTATION_VERTICAL_UP]|| ([ship.shipCurrentOrientation isEqualToString:CONST_SHIP_ORIENTATION_VERTICAL_Down])) {
+			
+			
+					NSMutableDictionary *dict=[tempCountingArray objectAtIndex:i];
+					if([enemyMap deployVerticalShip:ship atCell:[[dict objectForKey:@"number"] intValue]])
+					{
+						isShipDeployed=YES;
+						break; // break when successfully deployed;
+						
+					}
+			
+			
+				}
+				else {
+
+						NSMutableDictionary *dict=[tempCountingArray objectAtIndex:i];
+						if([enemyMap deployHorizontalShip:ship atCell:[[dict objectForKey:@"number"] intValue]])
+						{
+							isShipDeployed=YES;
+							break; // break when successfully deployed;
+						}
+					
+			
+				}
+				
+			} //for i
+			
+			if (isShipDeployed) {
+				break;
+			}
+		} // for orient count
+
+		
+		
+	} //for j
+	
+	
+	
+	for (int i=0; i<[enemyShips count]; i++) {
+		
+		Ship *ship=[enemyShips objectAtIndex:i];
+		
+		[ship getShipDeploymentDetails];
+		
+	}
+	
+	
+}
+
+-(BOOL)hasMoreEnemyShipDestroyed
+{
+	return NO;
+}
+
+- (void) dealloc
+{
+	
+	[playerMap release];
+	[enemyMap release];
+	
+	[enemyShips release];
+	[playerShips release];
+	
+	[super dealloc];
+
+}
+
+
+
+@end

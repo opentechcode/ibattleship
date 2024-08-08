@@ -1,0 +1,70 @@
+//
+//  GameManager.h
+//  iBattleShips
+//
+//  Created by Sajjad Raza on 9/28/10.
+//  Copyright 2010 Vizio-Mobile Inc. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "GameProcessor.h";
+#import "AdDisplayViewController.h"
+#import "MailComposeViewController.h"
+#import "GameCenter.h"
+
+
+@interface GameManager : NSObject <MFMailComposeViewControllerDelegate>
+{
+	
+	
+	GameProcessor *gameProcessor;
+	
+	AdDisplayViewController *adViewController; 
+	
+	UIDeviceOrientation currentOrientation;
+	
+	MailComposeViewController *mail ;
+	MFMailComposeViewController *mfmail;
+	
+	GameCenter *gamecenter;
+		
+	
+}
+
+@property (nonatomic,retain) GameProcessor *gameProcessor;
+@property (nonatomic ,retain) AdDisplayViewController *adViewController;
+@property (nonatomic, retain)MailComposeViewController *mail;
+@property (nonatomic, retain)GameCenter *gamecenter;
+//@property (readwrite) BOOL isGamePaused;
+@property (nonatomic, retain)MFMailComposeViewController *mfmail;
++(GameManager*) sharedGameManager;
+-(void)refreshGameProcessor;
+-(void)startGame;
+-(void)mainMenu;
+-(void) mainMenu;
+-(void) howtoplayscene;
+-(void ) gamePlayScene;
+-(void ) optionScene;
+-(void ) creditScene;
+-(void ) helpScene;
+-(void ) highScoreScene;
+-(void)multiplayerGamePlayScene;
+
+
+-(void)startup:(id)sender;
+-(void) changePositionofAdd:(UIInterfaceOrientation)orientation;
+-(void)rotateMailComposer:(UIDeviceOrientation)deviceOrientation;
+-(void)orientationChanged:(id)sender;
+-(void)saveGameSettings;
+-(void) loadGameSettings;
+-(void) inviteYourFriends:(id)sender;
+-(void)removeAddTemporarily;
+-(void)insertTheAddAgain;
+-(void)insertTheAddInGamplay;
+
+
+
+
+
+
+@end

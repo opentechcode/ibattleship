@@ -1,0 +1,82 @@
+//
+//  Constant.h
+//  iBattleships
+//
+//  Created by Sajjad Raza on 9/29/10.
+//  Copyright 2010 Vizio-Mobile Inc. All rights reserved.
+//
+
+
+#define CONST_MAP_STATE_SIMPLE 0
+#define CONST_MAP_STATE_SHIP_UNDER_DESTRUCTION 1
+
+#define CONST_CELL_OCCUPATION_STATE_EMPTY 0
+#define CONST_CELL_OCCUPATION_STATE_SHIP 1
+
+#define CONST_CELL_HIT_STATUS_EMPTY 0
+#define CONST_CELL_HIT_STATUS_MISSED 1
+#define CONST_CELL_HIT_STATUS_BLAST 2
+
+/////////////// If name spellings are changed here then they must be changed in Ships.plist respectively ////////////////////////////////////////////////////
+#define CONST_SHIP_TYPE_AIRCRAFT_CARRIER @"AirCraft Carrier"
+#define CONST_SHIP_TYPE_DESTROYER @"Destroyer"
+#define CONST_SHIP_TYPE_WARRIOR @"Warrior"
+#define CONST_SHIP_TYPE_GUNSHIP_BOAT @"Gunship Boat"
+#define CONST_SHIP_TYPE_FIGHTER_BOAT @"Fighter Boat"
+
+
+#define CONST_SHIP_ORIENTATION_VERTICAL_UP @"Vertical-Up"
+#define CONST_SHIP_ORIENTATION_VERTICAL_Down @"Vertical-Down"
+#define CONST_SHIP_ORIENTATION_HORIZONTAL_Right @"Horizontal-Right"
+#define CONST_SHIP_ORIENTATION_HORIZONTAL_LEFT @"Horizontal-Left"
+
+#define CONST_CELLS_DIRECTION_UPWARD @"Up"
+#define CONST_CELLS_DIRECTION_DOWNWARDS @"Down"
+#define CONST_CELLS_DIRECTION_PARALLEL @"Parallel"
+
+#define CONST_CELLS_DIRECTION_RIGHTWARDS @"Right"
+#define CONST_CELLS_DIRECTION_LEFTWARDS @"Left"
+
+
+//////////Ship Constants/////////////////////////////////
+
+
+///////////////////////////////////////////////////////
+
+////////////// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////  Grid width and length/////////////
+
+#define CONST_CELLS_WIDTH 10
+#define CONST_CELLS_HEIGHT 10
+#define CONST_CELLS_TOTAL_GRIDS 100
+
+/////////////////////////////////AI Generator////////////////////////////////////////
+
+
+
+#define CONST_BLAST_DIRECTION_RIGHT 1
+
+#define CONST_BLAST_DIRECTION_LEFT 2
+
+#define CONST_BLAST_DIRECTION_UP 3
+
+#define CONST_BLAST_DIRECTION_DOWN 4
+
+
+///////////////////////Ship Constants//////////////////////////////////////////////////////////////
+
+<<<<<<< .mine
+#define CONST_SHIP_LIFE_ALIVE 0
+#define CONST_SHIP_LIFE_DEAD 1
+
+//////////////////////////////////////////////////////
+#define STORY @"The enemy has deployed hidden ships, submarines and naval mines in sea on our side. The enemy planted ships will try to destroy our naval fleet. Our communication system has no signs of enemy fleet .So now you have the responsibility to rescue our side you have to spot enemy fleet by guessing the position and our artillery will fire missile at that place. Mission is to destroy enemy fleet before it destroys yours"=======
+#define STORY @"The enemy has deployed hidden ships, submarines and naval mines in sea on our side. The enemy planted ships will try to destroy our naval fleet. Our communication system has no signs of enemy fleet .So now you have the responsibility to rescue our side you have to spot enemy fleet by guessing the position and our artillery will fire missile at that place. Mission is to destroy enemy fleet before it destroys yours"
+
+
+
+//////////////////////////////////////////////
+
+#define ENEMY_IDENTIFIER 1
+#define PLAYER_IDENTIFIER 2
+>>>>>>> .r7

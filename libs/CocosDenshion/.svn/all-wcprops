@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/ibattleship/!svn/ver/87/trunk/iBattleShips/libs/CocosDenshion
+END
+CDConfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/CocosDenshion/CDConfig.h
+END
+CocosDenshion.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/CocosDenshion/CocosDenshion.h
+END
+SimpleAudioEngine.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/CocosDenshion/SimpleAudioEngine.h
+END
+CDOpenALSupport.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/CocosDenshion/CDOpenALSupport.h
+END
+CDAudioManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/CocosDenshion/CDAudioManager.h
+END
+CocosDenshion.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/CocosDenshion/CocosDenshion.m
+END
+SimpleAudioEngine.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/ibattleship/!svn/ver/87/trunk/iBattleShips/libs/CocosDenshion/SimpleAudioEngine.m
+END
+CDOpenALSupport.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/CocosDenshion/CDOpenALSupport.m
+END
+CDAudioManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/CocosDenshion/CDAudioManager.m
+END

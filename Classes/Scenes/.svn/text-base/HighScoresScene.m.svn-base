@@ -1,0 +1,221 @@
+//
+//  HighScoresScene.m
+//  iBattleships
+//
+//  Created by Sajjad Raza on 10/1/10.
+//  Copyright 2010 Vizio-Mobile Inc. All rights reserved.
+//
+
+#import "HighScoresScene.h"
+
+#import "HighScoreManager.h"
+@implementation HighScoresScene
+
+@synthesize backgroundImage, titleName,titleShots,titleTime,titleGameMode,titleRank;
+@synthesize globalScoreLayer,localScoreLayer,mainmenu,clearHighScores;
+
+@synthesize globalHighScoresButton,localHighScoresButton;
+
+
+- (id) init
+{
+	self = [super init];
+	if (self != nil) 
+	{
+		CGSize size = [[CCDirector sharedDirector] winSize];
+		///background image
+		self.backgroundImage = [CCSprite spriteWithFile:@"Background.png"];
+		[self.backgroundImage setPosition:CGPointMake(size.width/2,size.height/2)];
+		[self addChild:self.backgroundImage];
+		
+		
+		
+		//CCLabel* label = [CCLabel labelWithString:@"High Score Scene" fontName:@"Marker Felt" fontSize:64];
+		
+		// ask director the the window size
+		//CGSize size = [[CCDirector sharedDirector] winSize];
+		
+		// position the label on the center of the screen
+		//label.position =  ccp( size.width /2 , 700 );
+		
+		// add the label as a child to this Layer
+		//[self addChild: label];
+				
+		self.mainmenu=[CCMenuItemImage itemFromNormalImage:@"btn_mainMenu_unpress.png" selectedImage:@"btn_mainMenu_press.png" target:self selector:@selector(mainMenu:)];
+	
+		self.clearHighScores=[CCMenuItemImage itemFromNormalImage:@"btn_clearHighscore_unpress.png" selectedImage:@"btn_clearHighscore_press.png" target:self selector:@selector(clearScores:)];
+		self.localHighScoresButton=[CCMenuItemImage itemFromNormalImage:@"btn_localScores_unpress.png" selectedImage:@"btn_localScores_press.png" target:self selector:@selector(showLocalScores:)];
+		self.globalHighScoresButton=[CCMenuItemImage itemFromNormalImage:@"btn_globalscores_unpress.png" selectedImage:@"btn_globalscores_press.png" target:self selector:@selector(showGlobalScores:)];
+		
+				
+		//[]
+		//CCMenuItemFont *mnuPlay= [CCMenuItemFont itemFromString:@"MainMenu" target:self selector:@selector(mainMenu:)];
+		//[mnuPlay setPosition:CGPointMake(768, 300)]; 		
+		
+		CCMenu *menu =[CCMenu menuWithItems:mainmenu,clearHighScores,/*localHighScoresButton,*/globalHighScoresButton,nil];
+		[menu setPosition:CGPointMake(0, 0)];
+		[self addChild:menu];
+		
+		[self initializeTitles];
+		[self setComponentPositions];
+		
+		
+		HighScoreLocalLayer *tempLocalLayer= [[HighScoreLocalLayer alloc] init];
+		self.localScoreLayer=tempLocalLayer;
+		[tempLocalLayer release];
+		
+		[self addChild:localScoreLayer];
+		[localScoreLayer removeAllChildrenWithCleanup:YES];
+		[localScoreLayer populateLayer];
+		
+		HighScoreGlobalLayer *tempGlobalLayer= [[HighScoreGlobalLayer alloc] init];
+		self.globalScoreLayer=tempGlobalLayer;
+		[tempGlobalLayer release];
+		
+	}
+	return self;
+}
+
+-(void)initializeTitles
+{
+	titleRank =[CCLabel labelWithString:@"RANK" fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TITLE_SIZE];
+	[self addChild:titleRank];
+	
+	titleName= [CCLabel labelWithString:@"NAME" dimensions:CGSizeMake(150, 30) alignment:UITextAlignmentLeft fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TITLE_SIZE] ;//[CCLabel labelWithString:@"NAME" fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TITLE_SIZE];
+	[self addChild:titleName];
+	
+	titleShots= [CCLabel labelWithString:@"SHOTS" fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TITLE_SIZE];
+	[self addChild:titleShots];
+	
+	titleTime= [CCLabel labelWithString:@"TIME" fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TITLE_SIZE];
+	[self addChild:titleTime];
+	
+	
+	
+	
+//	titleGameMode= [CCLabel labelWithString:@"GAME MODE" fontName:CONST_STRING_FONT_NAME fontSize:CONST_FONT_TITLE_SIZE];
+//	[self addChild:titleGameMode];
+	
+}
+
+-(void)setComponentPositions
+{
+	[clearHighScores setPosition:CGPointMake(840, 190)];
+	[localHighScoresButton setPosition:CGPointMake(590, 614)];
+	[globalHighScoresButton setPosition:CGPointMake(800, 614)];
+	
+	[mainmenu setPosition:CGPointMake(CONST_MAINMENU_POSITION_X, CONST_MAINMENU_POSITION_Y)];
+	
+	
+	int x=200;
+	int y=525;
+	
+	
+	
+	int xShift=190;
+	
+	[titleRank setPosition:CGPointMake(x, y)];
+	[titleRank setColor:ccBLACK];
+	x+=xShift;
+	
+	[titleName setPosition:CGPointMake(x, y)];
+	[titleName setColor:ccBLACK];
+	x+=xShift;
+	
+	[titleShots setPosition:CGPointMake(x, y)];
+	[titleShots setColor:ccBLACK];
+	x+=xShift;
+	
+	[titleTime setPosition:CGPointMake(x, y)];
+	[titleTime setColor:ccBLACK];
+	
+	x+=xShift;
+//	[titleGameMode setPosition:CGPointMake(x, y)];
+//	[titleGameMode setColor:ccBLACK];
+}
+
+-(void)clearScores:(id)sender
+{
+	UIAlertView *alertView= [[UIAlertView alloc] initWithTitle:@"Clear Scores!" message:@"Are you sure that you want to clear all scores" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:nil];
+	[alertView addButtonWithTitle:@"YES"];
+	[alertView show];
+	[alertView release];
+	/*
+	HighScoreManager *scoreManager= [[HighScoreManager alloc] init];
+	[scoreManager .localArray removeAllObjects];
+	[scoreManager saveLocalScores];
+	[scoreManager release];
+	
+	[self.localScoreLayer removeAllChildrenWithCleanup:YES];
+	[self.localScoreLayer populateLayer];
+	 */
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex;  // after animation
+{
+
+	if (buttonIndex==1) {
+		
+		HighScoreManager *scoreManager= [[HighScoreManager alloc] init];
+		[scoreManager .localArray removeAllObjects];
+		[scoreManager saveLocalScores];
+		[scoreManager release];
+		
+		[self.localScoreLayer removeAllChildrenWithCleanup:YES];
+		[self.localScoreLayer populateLayer];
+		
+	}
+}
+
+
+-(void)showLocalScores:(id)sender
+{/*
+	[self removeChild:globalScoreLayer cleanup:YES];
+	[self removeChild:localScoreLayer cleanup:YES];
+	[self addChild:localScoreLayer];
+	[localScoreLayer populateLayer];
+	clearHighScores.visible=YES;
+  */
+}
+
+-(void)showGlobalScores:(id)sender
+{
+	
+	[[GameManager sharedGameManager].gamecenter showViewControllerLeaderBoard];
+	
+	
+	
+	/*
+	[self removeChild:localScoreLayer cleanup:YES];
+	[self removeChild:globalScoreLayer cleanup:YES];
+	[self addChild:globalScoreLayer];
+	[globalScoreLayer getGlobalScore];
+	clearHighScores.visible=NO ;
+	*/
+		
+	
+		
+}
+
+-(void) mainMenu:(id) sender
+{    
+	[[GameManager sharedGameManager]  mainMenu];
+}
+
+- (void) dealloc
+{
+	NSLog(@"The HighScores Dealloc Scene");
+
+	[self removeAllChildrenWithCleanup:YES];
+	
+	[mainmenu release];
+	//[titleName release];[titleShots release];[titleTime release];[titleGameMode release];[titleRank release];
+	[backgroundImage release];
+	[clearHighScores release];
+	[localScoreLayer release];
+	[globalScoreLayer release];
+	[super dealloc];
+}
+
+
+@end

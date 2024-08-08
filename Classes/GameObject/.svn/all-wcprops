@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/GameObject
+END
+GameManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/GameObject/GameManager.m
+END
+GameSettings.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ibattleship/!svn/ver/87/trunk/iBattleShips/Classes/GameObject/GameSettings.h
+END
+GameCenter.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/ibattleship/!svn/ver/249/trunk/iBattleShips/Classes/GameObject/GameCenter.h
+END
+HighScore.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Classes/GameObject/HighScore.h
+END
+HighScoreManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/ibattleship/!svn/ver/131/trunk/iBattleShips/Classes/GameObject/HighScoreManager.m
+END
+GameSettings.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ibattleship/!svn/ver/88/trunk/iBattleShips/Classes/GameObject/GameSettings.m
+END
+GameCenter.m
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/ibattleship/!svn/ver/249/trunk/iBattleShips/Classes/GameObject/GameCenter.m
+END
+HighScore.m
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Classes/GameObject/HighScore.m
+END
+GameManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ibattleship/!svn/ver/249/trunk/iBattleShips/Classes/GameObject/GameManager.h
+END
+HighScoreManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/ibattleship/!svn/ver/48/trunk/iBattleShips/Classes/GameObject/HighScoreManager.h
+END

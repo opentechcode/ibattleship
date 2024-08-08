@@ -1,0 +1,317 @@
+//
+//  GameManager.m
+//  iBattleShips
+//
+//  Created by Sajjad Raza on 9/28/10.
+//  Copyright 2010 Vizio-Mobile Inc. All rights reserved.
+//
+
+#import "GameManager.h"
+#import "StoryScene.h"
+#import "MainMenuScene.h"
+#import "iBattleShipsSound.h"
+#import "GamePlayScene.h"
+#import "OptionScene.h"
+#import "CreditScene.h"
+#import "HighScoresScene.h"
+#import "HelpScene.h"
+
+
+static GameManager *gameManager=nil;
+
+@implementation GameManager
+
+@synthesize gameProcessor,adViewController ;
+
++(GameManager*) sharedGameManager 
+{
+	@synchronized(self)
+	{
+		if (gameManager==nil) 
+		{
+			gameManager=[[self alloc] init];
+			
+			
+		}
+		
+		
+	}
+	
+	return gameManager;
+}
+
+
+- (id) init
+{
+	self = [super init];
+	if (self != nil) 
+	{
+		AdDisplayViewController *temp = [[AdDisplayViewController alloc] init];
+		self.adViewController = temp;
+		[temp release];
+		[[CCDirector sharedDirector].openGLView addSubview:adViewController.view];
+		
+		GameProcessor *tempProcessor = [[GameProcessor alloc] init];
+		self.gameProcessor = tempProcessor;
+		[tempProcessor release];
+				
+		[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
+		
+		[[CCScheduler sharedScheduler] scheduleSelector:@selector(startup:) forTarget:self interval:0.01 paused:NO];
+		
+		
+		
+		[iBattleShipsSound preLoadSounds];
+		[self loadGameSettings];
+
+		
+		
+	}
+	return self;
+}
+
+
+-(void)refreshGameProcessor
+{
+	
+	[gameProcessor release];
+	gameProcessor =nil;
+	GameProcessor *tempProcessor = [[GameProcessor alloc] init];
+	self.gameProcessor = tempProcessor;
+	[tempProcessor release];
+	
+}
+#pragma mark orientation Change functions
+
+-(void)startup:(id)sender
+{
+
+	UIDeviceOrientation devOrient=[[UIDevice currentDevice] orientation];
+	
+	
+	if ((devOrient == UIDeviceOrientationLandscapeLeft) || (devOrient == UIDeviceOrientationLandscapeRight)) 
+	{
+		
+		currentOrientation=devOrient;
+		[[CCDirector sharedDirector] setDeviceOrientation:devOrient];
+		
+	}
+	else{
+		
+		currentOrientation=UIDeviceOrientationLandscapeRight;
+		[[CCDirector sharedDirector] setDeviceOrientation:devOrient];
+	}
+	
+	[gameProcessor setTextFieldOrientation:currentOrientation];
+	
+	[self changePositionofAdd:currentOrientation];
+	
+	[[CCScheduler sharedScheduler] unscheduleSelector:@selector(startup:) forTarget:self];
+	
+	
+	
+}
+
+
+-(void) changePositionofAdd:(UIInterfaceOrientation)orientation
+{
+	if (orientation == UIInterfaceOrientationLandscapeLeft) 
+	{
+		CGAffineTransform makeLandscape = CGAffineTransformMakeRotation(4.71238898038469);
+		makeLandscape = CGAffineTransformTranslate(makeLandscape, 0, 0);
+		makeLandscape = CGAffineTransformScale(makeLandscape, 1.0f, 1.0f);
+		self.adViewController.adMobView.transform = makeLandscape;
+		self.adViewController.adMobView.center =  CGPointMake(768-50.0, 656);	
+	}
+	if ( orientation == UIInterfaceOrientationLandscapeRight)
+	{
+		CGAffineTransform makeLandscape = CGAffineTransformMakeRotation(M_PI * 0.5f);
+		makeLandscape = CGAffineTransformTranslate(makeLandscape, 0, 0);
+		makeLandscape = CGAffineTransformScale(makeLandscape, 1.0f, 1.0f);
+		self.adViewController.adMobView.transform = makeLandscape;
+		self.adViewController.adMobView.center =  CGPointMake(50.0, 368);	
+	}
+	
+	/*
+	if (orientation == UIInterfaceOrientationPortrait) 
+	{
+		
+		CGAffineTransform makePortrait = CGAffineTransformMakeRotation(6.283185307179586);
+		makePortrait = CGAffineTransformTranslate(makePortrait, 0, 0);
+		makePortrait = CGAffineTransformScale(makePortrait, 1.0f, 1.0f);
+		self.adViewController.adMobView.transform = makePortrait;
+		self.adViewController.adMobView.center = CGPointMake(768.0/2.0,40);
+		// position ad at the bottom of the view and centered horizontally
+		
+	}
+	if (orientation == UIInterfaceOrientationPortraitUpsideDown) 
+	{
+		CGAffineTransform makePortrait = CGAffineTransformMakeRotation(M_PI);
+		makePortrait = CGAffineTransformTranslate(makePortrait, 0, 0);
+		makePortrait = CGAffineTransformScale(makePortrait, 1.0f, 1.0f);
+		self.adViewController.adMobView.transform = makePortrait;
+		self.adViewController.adMobView.center = CGPointMake(768.0/2.0,1024-40); 
+		
+	}
+	*/
+}
+
+-(void)orientationChanged:(id)sender
+{
+	UIDeviceOrientation devOrient = [[UIDevice currentDevice] orientation];
+	if (devOrient==currentOrientation) {
+		return;
+	}
+	
+	if ((devOrient == UIDeviceOrientationLandscapeLeft) || (devOrient == UIDeviceOrientationLandscapeRight) ) 
+	{
+		currentOrientation=devOrient;
+		
+		
+		currentOrientation=devOrient;
+		[[CCDirector sharedDirector] setDeviceOrientation:devOrient];
+		[self changePositionofAdd:currentOrientation];
+		
+		[gameProcessor setTextFieldOrientation:devOrient];
+		
+	}
+	
+	[gameProcessor setTextFieldOrientation:currentOrientation];
+
+	
+}
+
+
+
+#pragma mark Scene Launching Functions
+
+
+-(void)startGame
+{
+	StoryScene *storyScene= [[StoryScene alloc] init];
+	
+	[[CCDirector sharedDirector] runWithScene:storyScene];
+	//[menuScene changeOrientation:currentOrientation];
+	[storyScene release];
+	
+}
+-(void) mainMenu 
+{
+	MainMenuScene *menuScene= [[MainMenuScene alloc] init];
+	[[CCDirector sharedDirector] replaceScene:menuScene];
+	//[menuScene changeOrientation:currentOrientation];
+	[menuScene release];
+	[iBattleShipsSound playMainMenuBackGroundSound];
+
+}
+
+-(void) optionScene
+{
+		OptionScene *optionScene= [[OptionScene alloc] init];
+		[[CCDirector sharedDirector] replaceScene:optionScene];
+		//[menuScene changeOrientation:currentOrientation];
+		[optionScene release];
+		
+	
+	
+}
+
+-(void) creditScene
+{
+	CreditScene *creditScene= [[CreditScene alloc] init];
+	[[CCDirector sharedDirector] replaceScene:creditScene];
+	//[menuScene changeOrientation:currentOrientation];
+	[creditScene release];
+	
+	
+	
+}
+-(void) helpScene
+{
+	HelpScene *helpScene= [[HelpScene alloc] init];
+	[[CCDirector sharedDirector] replaceScene:helpScene];
+	//[menuScene changeOrientation:currentOrientation];
+	[helpScene release];
+	
+	
+	
+}
+-(void) highScoreScene
+{
+	HighScoresScene *highScoreScene= [[HighScoresScene alloc] init];
+	[[CCDirector sharedDirector] replaceScene:highScoreScene];
+	//[menuScene changeOrientation:currentOrientation];
+	[highScoreScene release];
+	
+	
+	
+}
+-(void ) gamePlayScene
+{
+	[iBattleShipsSound playGamePlayBackGroundSound];
+
+	GamePlayScene * gameScene = [[GamePlayScene alloc] init];
+	[[CCDirector sharedDirector] replaceScene:gameScene];
+	[gameScene release];
+}
+
+#pragma mark Game Load and Save Functions
+
+-(void)loadGameSettings
+{
+	NSMutableDictionary *game=[NSKeyedUnarchiver unarchiveObjectWithFile:[iBattleShipsAppDelegate pathForApplicationFile:@"GameSetting.plist"]];
+	if ( game !=nil )
+	{		
+		//Assign the attributes
+		GameSettings *tempGameSettings=(GameSettings *)[game objectForKey:@"Settings"];
+		if(tempGameSettings!=nil)
+		{
+			[GameSettings sharedGameSettings].soundEffectsStatus = tempGameSettings.soundEffectsStatus;
+			[GameSettings sharedGameSettings].ambientSoundStatus = tempGameSettings.ambientSoundStatus;
+
+			
+			
+		}
+	}
+}
+
+-(void)saveGameSettings
+{
+	NSMutableDictionary * gameDictionary = [NSKeyedUnarchiver unarchiveObjectWithFile:[iBattleShipsAppDelegate pathForApplicationFile:@"GameSetting.plist"]];
+	
+	if(gameDictionary != nil)
+	{
+		[gameDictionary setObject:[GameSettings sharedGameSettings] forKey:@"Settings"];
+		if([NSKeyedArchiver archiveRootObject: gameDictionary toFile:[iBattleShipsAppDelegate pathForApplicationFile:@"GameSetting.plist"]]) {
+			NSLog(@"Game Save SUCCESSFUL");
+		} else {
+			NSLog(@"Game Save FAILED");
+		}
+		
+	}
+	else {
+		
+		NSMutableDictionary *gameDictionary=[[NSMutableDictionary alloc] init];
+		
+		[gameDictionary setObject:[GameSettings sharedGameSettings] forKey:@"Settings"];
+		if([NSKeyedArchiver archiveRootObject: gameDictionary toFile:[iBattleShipsAppDelegate pathForApplicationFile:@"GameSetting.plist"]]) {
+			NSLog(@"Game Save SUCCESSFUL");
+		} else {
+			NSLog(@"Game Save FAILED");
+		}
+		[gameDictionary release];
+		
+		
+	}
+}
+
+
+
+- (void) dealloc
+{
+	[gameProcessor release];
+	[super dealloc];
+}
+
+@end

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/ibattleship/!svn/ver/208/trunk/iBattleShips/Classes/Network%20Wrapper
+END
+NetworkWrapper.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Classes/Network%20Wrapper/NetworkWrapper.h
+END
+NetworkWrapper.m
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/ibattleship/!svn/ver/208/trunk/iBattleShips/Classes/Network%20Wrapper/NetworkWrapper.m
+END
+Reachability.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/ibattleship/!svn/ver/208/trunk/iBattleShips/Classes/Network%20Wrapper/Reachability.h
+END
+Reachability.m
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Classes/Network%20Wrapper/Reachability.m
+END

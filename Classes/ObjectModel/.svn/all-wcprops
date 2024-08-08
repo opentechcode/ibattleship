@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/ObjectModel
+END
+MultiPlayerProtocol.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/ibattleship/!svn/ver/249/trunk/iBattleShips/Classes/ObjectModel/MultiPlayerProtocol.h
+END
+MultiPlayerGameManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/ObjectModel/MultiPlayerGameManager.h
+END
+Player.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/ibattleship/!svn/ver/249/trunk/iBattleShips/Classes/ObjectModel/Player.h
+END
+MultiPlayerGameManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/ObjectModel/MultiPlayerGameManager.m
+END
+AnimationProtocol.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/ibattleship/!svn/ver/235/trunk/iBattleShips/Classes/ObjectModel/AnimationProtocol.h
+END
+Player.m
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/ObjectModel/Player.m
+END
+Ship.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/ibattleship/!svn/ver/222/trunk/iBattleShips/Classes/ObjectModel/Ship.h
+END
+AIGuessGenerator.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/ibattleship/!svn/ver/138/trunk/iBattleShips/Classes/ObjectModel/AIGuessGenerator.h
+END
+Ship.m
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/ibattleship/!svn/ver/231/trunk/iBattleShips/Classes/ObjectModel/Ship.m
+END
+GameProcessor.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/ibattleship/!svn/ver/249/trunk/iBattleShips/Classes/ObjectModel/GameProcessor.h
+END
+AIGuessGenerator.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/ibattleship/!svn/ver/138/trunk/iBattleShips/Classes/ObjectModel/AIGuessGenerator.m
+END
+Map.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/ibattleship/!svn/ver/241/trunk/iBattleShips/Classes/ObjectModel/Map.h
+END
+GameProcessor.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/ibattleship/!svn/ver/250/trunk/iBattleShips/Classes/ObjectModel/GameProcessor.m
+END
+Cell.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/ibattleship/!svn/ver/8/trunk/iBattleShips/Classes/ObjectModel/Cell.h
+END
+Map.m
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/ibattleship/!svn/ver/241/trunk/iBattleShips/Classes/ObjectModel/Map.m
+END
+Cell.m
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/ibattleship/!svn/ver/8/trunk/iBattleShips/Classes/ObjectModel/Cell.m
+END

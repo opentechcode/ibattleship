@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/ibattleship/!svn/ver/114/trunk/iBattleShips/Classes/Server%20Communication
+END
+CompititionObject.m
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Classes/Server%20Communication/CompititionObject.m
+END
+OnlineCompetitionManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Classes/Server%20Communication/OnlineCompetitionManager.h
+END
+ServerCommunication.h
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Classes/Server%20Communication/ServerCommunication.h
+END
+OnlineCompetitionManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/ibattleship/!svn/ver/114/trunk/iBattleShips/Classes/Server%20Communication/OnlineCompetitionManager.m
+END
+ServerCommunication.m
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Classes/Server%20Communication/ServerCommunication.m
+END
+CompititionObject.h
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/ibattleship/!svn/ver/111/trunk/iBattleShips/Classes/Server%20Communication/CompititionObject.h
+END

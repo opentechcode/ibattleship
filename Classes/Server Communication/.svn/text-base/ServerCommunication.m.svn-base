@@ -1,0 +1,80 @@
+//
+//  ServerCommunication.m
+//  iPuzzle
+//
+//  Created by Ali Zafar on 6/17/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import "ServerCommunication.h"
+#import "JSON.h"
+
+@implementation ServerCommunication
+
+
+
++(NSDictionary *)highScoreswithDeviceId:(NSString *)deviceId
+{
+	NSDictionary *dict=[ServerCommunication sendPostRequestToUrl:[NSString stringWithFormat:@"%@%@%@",CONST_URL_SERVER,CONST_URL_GET_HIGHSCORE,deviceId] withParameterString:nil];
+	return dict;
+	
+	
+}
+
+
++(BOOL)submitScoreWithName:(NSString *)scorername Shots:(int)scorershots Time:(int)scorertime GameMode:(int)scorergameMode andDeviceId:(NSString *)scorer_device_id;
+{
+	
+	NSString *url=[NSString stringWithFormat:@"%@%@%@/%d/%d/%d/%@",CONST_URL_SERVER,CONST_URL_SAVE_HIGH_SCORE,[scorername stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],scorershots,scorertime,scorergameMode,scorer_device_id];
+	NSLog(@"%@",url);
+	NSDictionary *dict=[ServerCommunication sendPostRequestToUrl:url withParameterString:nil];
+	if([[dict objectForKey:@"status"] intValue]==1)
+	{
+		return YES;
+	}
+	NSLog(@"%@",dict);
+	
+	return NO;
+	
+}
+
+
++ (NSDictionary*)sendPostRequestToUrl:(NSString*) urlString withParameterString:(NSString*) parameterString {
+	
+	
+	
+	NSLog(@"Sending POST Request: %@%@" , urlString, parameterString);
+	NSURL *url = [NSURL URLWithString:urlString];
+	
+	NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
+	
+    [req setTimeoutInterval:20.0];
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:[[parameterString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSHTTPURLResponse *urlResponse=nil;
+    NSError *error = [[NSError alloc] init];
+    NSData *responseData= [NSURLConnection sendSynchronousRequest:req returningResponse: &urlResponse error:&error];
+	
+    NSString * resultString = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    
+	NSDictionary *result = (NSDictionary*)[ServerCommunication objectWithString:resultString];
+	
+	NSLog(@"Reply In POST Request: %@" , result);
+	
+    
+	//[SharedData sharedData].alertCounter-=1;
+    return result;
+}
+
+
++(NSDictionary *)objectWithString:(NSString *)resultString
+{		
+		SBJSON *jsonParser = [SBJSON new];
+		// Parse the JSON into an Object
+		return [jsonParser objectWithString:resultString error:NULL];	
+}
+
+
+
+@end

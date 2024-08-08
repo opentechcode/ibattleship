@@ -1,0 +1,64 @@
+//
+//  HighScoresScene.h
+//  iBattleships
+//
+//  Created by Sajjad Raza on 10/1/10.
+//  Copyright 2010 Vizio-Mobile Inc. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+#import "HighScoreLocalLayer.h"
+#import "HighScoreGlobalLayer.h"
+
+
+
+@interface HighScoresScene : CCScene <UIAlertViewDelegate>
+{	
+	
+	CCSprite *backgroundImage;
+	CCLabel *titleRank;
+	CCLabel *titleName;
+	CCLabel *titleShots;
+	CCLabel *titleTime;
+	CCLabel *titleGameMode;
+	
+	CCMenuItemImage *mainmenu;
+	CCMenuItemImage *clearHighScores;
+	
+	CCMenuItemImage *globalHighScoresButton;
+	CCMenuItemImage *localHighScoresButton;
+	
+	HighScoreLocalLayer *localScoreLayer;
+	HighScoreGlobalLayer *globalScoreLayer;
+	//CCSprite *highscores;
+	
+}
+
+@property (nonatomic ,retain) CCSprite *backgroundImage;
+
+@property (nonatomic, retain) CCLabel *titleName;
+@property (nonatomic, retain) CCLabel *titleShots;
+@property (nonatomic, retain) CCLabel *titleTime;
+@property (nonatomic, retain) CCLabel *titleGameMode;
+@property (nonatomic, retain)CCLabel  *titleRank;
+@property (nonatomic, retain)CCMenuItemImage *mainmenu;
+
+//@property (nonatomic, retain)CCSprite *highscores;
+
+@property (nonatomic, retain)HighScoreGlobalLayer *globalScoreLayer;
+@property (nonatomic, retain)HighScoreLocalLayer *localScoreLayer;
+@property (nonatomic, retain)CCMenuItemImage *clearHighScores;
+
+@property (nonatomic, retain)CCMenuItemImage *localHighScoresButton;
+@property (nonatomic, retain)CCMenuItemImage *globalHighScoresButton;
+
+
+-(void)showLocalScores:(id)sender;
+-(void)showGlobalScores:(id)sender;
+-(void)initializeTitles;
+-(void)setComponentPositions;
+-(void)clearScores:(id)sender;
+
+
+@end

@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel
+END
+FontLabelStringDrawing.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/FontLabelStringDrawing.h
+END
+FontLabel.m
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/FontLabel.m
+END
+ZAttributedString.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/ZAttributedString.m
+END
+FontLabelStringDrawing.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/FontLabelStringDrawing.m
+END
+ZFont.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/ZFont.h
+END
+FontManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/FontManager.h
+END
+ZAttributedStringPrivate.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/ZAttributedStringPrivate.h
+END
+ZFont.m
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/ZFont.m
+END
+FontLabel.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/FontLabel.h
+END
+FontManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/FontManager.m
+END
+ZAttributedString.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ibattleship/!svn/ver/2/trunk/iBattleShips/libs/FontLabel/ZAttributedString.h
+END
